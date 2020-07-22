@@ -9,10 +9,13 @@
 import UIKit
 
 class MainViewController: UITableViewController {
+    
+    let networkService = NetworkService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        refreshContent()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -86,5 +89,15 @@ class MainViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func refreshContent() {
+        networkService.fetchRecords { (fetchResult) in
+            if fetchResult.results != nil {
+                print("SUCCESS")
+            } else {
+                print("FAIL")
+            }
+        }
+    }
 
 }

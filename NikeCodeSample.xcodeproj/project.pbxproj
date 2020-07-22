@@ -14,6 +14,8 @@
 		7D1A70DE24C7A53600155F6A /* NikeCodeSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A70DD24C7A53600155F6A /* NikeCodeSampleTests.swift */; };
 		7D1A70E924C7A53600155F6A /* NikeCodeSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A70E824C7A53600155F6A /* NikeCodeSampleUITests.swift */; };
 		7D1A70F724C7A99C00155F6A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A70F624C7A99C00155F6A /* MainViewController.swift */; };
+		7D1A70FC24C7B5B400155F6A /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A70FB24C7B5B400155F6A /* NetworkService.swift */; };
+		7D1A70FE24C7B64F00155F6A /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A70FD24C7B64F00155F6A /* AlbumModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		7D1A70E824C7A53600155F6A /* NikeCodeSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NikeCodeSampleUITests.swift; sourceTree = "<group>"; };
 		7D1A70EA24C7A53600155F6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D1A70F624C7A99C00155F6A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		7D1A70FB24C7B5B400155F6A /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		7D1A70FD24C7B64F00155F6A /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +102,13 @@
 			isa = PBXGroup;
 			children = (
 				7D1A70C624C7A53300155F6A /* AppDelegate.swift */,
+				7D1A70FB24C7B5B400155F6A /* NetworkService.swift */,
 				7D1A70C824C7A53300155F6A /* SceneDelegate.swift */,
 				7D1A70F624C7A99C00155F6A /* MainViewController.swift */,
 				7D1A70CF24C7A53600155F6A /* Assets.xcassets */,
 				7D1A70D124C7A53600155F6A /* LaunchScreen.storyboard */,
 				7D1A70D424C7A53600155F6A /* Info.plist */,
+				7D1A70FD24C7B64F00155F6A /* AlbumModel.swift */,
 			);
 			path = NikeCodeSample;
 			sourceTree = "<group>";
@@ -256,7 +262,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D1A70C724C7A53300155F6A /* AppDelegate.swift in Sources */,
+				7D1A70FE24C7B64F00155F6A /* AlbumModel.swift in Sources */,
 				7D1A70C924C7A53300155F6A /* SceneDelegate.swift in Sources */,
+				7D1A70FC24C7B5B400155F6A /* NetworkService.swift in Sources */,
 				7D1A70F724C7A99C00155F6A /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
