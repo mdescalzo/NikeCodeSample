@@ -2,7 +2,7 @@
 //  NetworkService.swift
 //
 
-import Foundation
+import UIKit
 
 enum NetworkError : Error {
     case invalidURL
@@ -28,10 +28,16 @@ struct FetchResult {
 
 class NetworkService {
     
+    /**
+     
+     */
     fileprivate let endpoint: String = "https://rss.itunes.apple.com/api/v1/us/apple-music/top-albums/all/100/explicit.json"
     
     fileprivate var task: URLSessionTask?
     
+    /**
+     
+     */
     func fetchRecords(completion: @escaping (FetchResult) -> Void) {
         
         func errorCompletion(_ error: Error) {
@@ -43,9 +49,7 @@ class NetworkService {
             return
         }
         
-        if let task = task {
-            task.cancel()
-        }
+        task?.cancel()
         
         task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -71,5 +75,28 @@ class NetworkService {
             }
         }
         task?.resume()
+    }
+    
+    /**
+     
+     */
+    func cancelFetch() {
+        if let task = task {
+            task.cancel()
+        }
+    }
+    
+}
+
+extension UIImage {
+    /**
+     Utility function to produce a UIImage from a url passed as a string
+     */
+    convenience init?(urlString: String) {
+        if let imageUrl = URL(string: urlString), let imageData = try? Data(contentsOf: imageUrl)  {
+            self.init(data: imageData)
+        } else {
+            return nil
+        }
     }
 }

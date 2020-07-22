@@ -16,6 +16,7 @@
 		7D1A70F724C7A99C00155F6A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A70F624C7A99C00155F6A /* MainViewController.swift */; };
 		7D1A70FC24C7B5B400155F6A /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A70FB24C7B5B400155F6A /* NetworkService.swift */; };
 		7D1A70FE24C7B64F00155F6A /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A70FD24C7B64F00155F6A /* AlbumModel.swift */; };
+		7DE2626C24C8C92D00FBC828 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE2626B24C8C92D00FBC828 /* AlbumCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		7D1A70F624C7A99C00155F6A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7D1A70FB24C7B5B400155F6A /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		7D1A70FD24C7B64F00155F6A /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
+		7DE2626B24C8C92D00FBC828 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,14 +103,14 @@
 		7D1A70C524C7A53300155F6A /* NikeCodeSample */ = {
 			isa = PBXGroup;
 			children = (
+				7D35C6D124C8BCD60073BC7E /* Interface */,
 				7D1A70C624C7A53300155F6A /* AppDelegate.swift */,
-				7D1A70FB24C7B5B400155F6A /* NetworkService.swift */,
 				7D1A70C824C7A53300155F6A /* SceneDelegate.swift */,
-				7D1A70F624C7A99C00155F6A /* MainViewController.swift */,
 				7D1A70CF24C7A53600155F6A /* Assets.xcassets */,
 				7D1A70D124C7A53600155F6A /* LaunchScreen.storyboard */,
 				7D1A70D424C7A53600155F6A /* Info.plist */,
-				7D1A70FD24C7B64F00155F6A /* AlbumModel.swift */,
+				7D35C6D324C8BD180073BC7E /* Models */,
+				7D35C6D224C8BCFA0073BC7E /* Networking */,
 			);
 			path = NikeCodeSample;
 			sourceTree = "<group>";
@@ -129,6 +131,31 @@
 				7D1A70EA24C7A53600155F6A /* Info.plist */,
 			);
 			path = NikeCodeSampleUITests;
+			sourceTree = "<group>";
+		};
+		7D35C6D124C8BCD60073BC7E /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				7D1A70F624C7A99C00155F6A /* MainViewController.swift */,
+				7DE2626B24C8C92D00FBC828 /* AlbumCell.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		7D35C6D224C8BCFA0073BC7E /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				7D1A70FB24C7B5B400155F6A /* NetworkService.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		7D35C6D324C8BD180073BC7E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7D1A70FD24C7B64F00155F6A /* AlbumModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +293,7 @@
 				7D1A70C924C7A53300155F6A /* SceneDelegate.swift in Sources */,
 				7D1A70FC24C7B5B400155F6A /* NetworkService.swift in Sources */,
 				7D1A70F724C7A99C00155F6A /* MainViewController.swift in Sources */,
+				7DE2626C24C8C92D00FBC828 /* AlbumCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
