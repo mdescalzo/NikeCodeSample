@@ -8,10 +8,31 @@
 
 import UIKit
 
+enum State {
+    case error
+    case empty
+    case loading
+    case viewing
+}
+
 class MainViewController: UITableViewController {
     
     let networkService = NetworkService()
 
+    
+    var state: State = .viewing {
+        didSet {
+            if state == .loading {
+                refreshContent()
+            }
+            
+            DispatchQueue.main.async { [unowned self] in
+                self.tableView.reloadData()
+//                self.configureFooterView()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -91,11 +112,22 @@ class MainViewController: UITableViewController {
     */
     
     func refreshContent() {
-        networkService.fetchRecords { (fetchResult) in
+        DispatchQueue.main.async { [unowned self] in
+            self.refreshControl?.beginRefreshing()
+        }
+
+        networkService.fetchRecords { [unowned self] (fetchResult) in
+            
+            defer {
+                DispatchQueue.main.async { [unowned self] in
+                    self.refreshControl?.endRefreshing()
+                }
+            }
+
             if fetchResult.results != nil {
-                print("SUCCESS")
+                print("Refresh successful")
             } else {
-                print("FAIL")
+                print("Refresh failed to acquire results.")
             }
         }
     }
