@@ -15,47 +15,76 @@ class DetailViewController: UIViewController {
             guard let model = albumViewModel else { return }
             DispatchQueue.main.async {
                 self.imageView.image = UIImage(urlString: model.artworkUrl100)
-                self.nameLabel.text = model.name
-                self.artistLabel.text = model.artistName
-                
-                self.releaseLabel.text = model.releaseDate
-                self.copyrightLabel.text = model.copyright
+                self.nameLabel.detailLabel.text = model.name
+                self.artistLabel.detailLabel.text = model.artistName
+                self.genreLabel.detailLabel.text = model.genres.first?.name
+                self.releaseLabel.detailLabel.text = model.releaseDate
+                self.copyrightLabel.detailLabel.text = model.copyright
+                self.linkButton.setTitle("See \(model.artistName) on iTunes", for: .normal)
             }
         }
     }
     
     private let linkButton: UIButton = {
         let button = UIButton(type: .roundedRect)
-        button.backgroundColor = .systemRed
+        button.tintColor = .systemBlue
         button.addTarget(self, action: #selector(handleLinkButtonTap), for: .touchUpInside)
         return button
     }()
-    
-    private lazy var stackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [ self.imageView,
-                                                    self.nameLabel,
+
+    private lazy var stack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [ self.nameLabel,
                                                     self.artistLabel,
                                                     self.genreLabel,
                                                     self.releaseLabel,
                                                     self.copyrightLabel, ])
         stack.axis = .vertical
         stack.distribution = .equalSpacing
-        stack.alignment = .center
+        stack.alignment = .fill
+        stack.spacing = 6.0
         
         return stack
     }()
     
-    private let imageView = UIImageView()
-    private let nameLabel = UILabel()
-    private let artistLabel = UILabel()
-    private let genreLabel = UILabel()
-    private let releaseLabel = UILabel()
-    private let copyrightLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
+    private let imageView: UIImageView = {
+        let imageview = UIImageView()
+        imageview.contentMode = .scaleAspectFit
+        return imageview
+    }()
+        
+    private let nameLabel: DetailRowView = {
+        let label = DetailRowView()
+        label.infoLabel.textAlignment = .right
+        label.infoLabel.text = "Album:"
+        label.alley = 100.0
+        return label
+    }()
+    private let artistLabel: DetailRowView = {
+        let label = DetailRowView()
+        label.infoLabel.textAlignment = .right
+        label.infoLabel.text = "Artist:"
+        return label
+    }()
+    private let genreLabel: DetailRowView = {
+        let label = DetailRowView()
+        label.infoLabel.textAlignment = .right
+        label.infoLabel.text = "Genre:"
+        return label
+    }()
+    private let releaseLabel: DetailRowView = {
+        let label = DetailRowView()
+        label.infoLabel.textAlignment = .right
+        label.infoLabel.text = "Release:"
         return label
     }()
     
+    private let copyrightLabel: DetailRowView = {
+        let label = DetailRowView()
+        label.infoLabel.textAlignment = .right
+        label.infoLabel.text = "Copyright:"
+        return label
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,18 +95,23 @@ class DetailViewController: UIViewController {
     
     private func configureSubviews() {
         
-        let subViews = [ "button" : linkButton, "stack": stackView ]
+        let subViews = [ "button" : linkButton, "stack": stack, "image": imageView ]
         
         for aview in subViews.values {
             aview.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(aview)
         }
-        
+
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(30)-[image]-(30)-|",
+                                                                options: [],
+                                                                metrics: nil,
+                                                                views: subViews))
+
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[stack]-(20)-|",
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(70)-[stack]-(20)-[button]",
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(70)-[image]-(30)-[stack]",
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))

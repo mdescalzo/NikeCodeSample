@@ -16,6 +16,7 @@
 		7D1A70F724C7A99C00155F6A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A70F624C7A99C00155F6A /* MainViewController.swift */; };
 		7D1A70FC24C7B5B400155F6A /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A70FB24C7B5B400155F6A /* NetworkService.swift */; };
 		7D1A70FE24C7B64F00155F6A /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A70FD24C7B64F00155F6A /* AlbumModel.swift */; };
+		7D73AAF924CA3F7700A58664 /* DetailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D73AAF824CA3F7700A58664 /* DetailRowView.swift */; };
 		7DE2626C24C8C92D00FBC828 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE2626B24C8C92D00FBC828 /* AlbumCell.swift */; };
 		7DE2627224C8F1E000FBC828 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE2627124C8F1E000FBC828 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 		7D1A70F624C7A99C00155F6A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7D1A70FB24C7B5B400155F6A /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		7D1A70FD24C7B64F00155F6A /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
+		7D73AAF824CA3F7700A58664 /* DetailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRowView.swift; sourceTree = "<group>"; };
 		7DE2626B24C8C92D00FBC828 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		7DE2627124C8F1E000FBC828 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -141,6 +143,7 @@
 				7D1A70F624C7A99C00155F6A /* MainViewController.swift */,
 				7DE2626B24C8C92D00FBC828 /* AlbumCell.swift */,
 				7DE2627124C8F1E000FBC828 /* DetailViewController.swift */,
+				7D73AAF824CA3F7700A58664 /* DetailRowView.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				7D1A70FE24C7B64F00155F6A /* AlbumModel.swift in Sources */,
 				7D1A70C924C7A53300155F6A /* SceneDelegate.swift in Sources */,
 				7D1A70FC24C7B5B400155F6A /* NetworkService.swift in Sources */,
+				7D73AAF924CA3F7700A58664 /* DetailRowView.swift in Sources */,
 				7D1A70F724C7A99C00155F6A /* MainViewController.swift in Sources */,
 				7DE2626C24C8C92D00FBC828 /* AlbumCell.swift in Sources */,
 				7DE2627224C8F1E000FBC828 /* DetailViewController.swift in Sources */,
@@ -465,6 +469,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 86VBXJD37T;
 				INFOPLIST_FILE = NikeCodeSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -483,6 +488,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 86VBXJD37T;
 				INFOPLIST_FILE = NikeCodeSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

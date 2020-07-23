@@ -17,6 +17,7 @@ struct AlbumModel: Codable {
     let artistUrl: String
     let artworkUrl100: String
     let url: String
+    let genres: [GenreModel]
     
     enum CodingKeys: String, CodingKey, CaseIterable {
         case id = "id"
@@ -29,6 +30,19 @@ struct AlbumModel: Codable {
         case contentAdvisoryRating = "contentAdvisoryRating"
         case artistUrl = "artistUrl"
         case artworkUrl100 = "artworkUrl100"
+        case url = "url"
+        case genres = "genres"
+    }
+}
+
+struct GenreModel: Codable {
+    let genreId: String
+    let name: String
+    let url: String
+    
+    enum CodingKeys: String, CodingKey, CaseIterable {
+        case genreId = "genreId"
+        case name = "name"
         case url = "url"
     }
 }
