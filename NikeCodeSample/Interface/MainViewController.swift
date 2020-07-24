@@ -9,7 +9,6 @@
 import UIKit
 
 enum State {
-    case error
     case empty
     case loading
     case viewing
@@ -18,35 +17,81 @@ enum State {
 class MainViewController: UITableViewController {
     
     let networkService = NetworkService()
-    
-    private var thumbnailCache = NSCache<NSString,UIImage>()
-    
-    fileprivate var albumList: [AlbumModel] = []
-    
-    var state: State = .viewing {
+        
+    var state: State = .empty {
         didSet {
+            
             if state == .loading {
                 refreshContent()
             }
             
             DispatchQueue.main.async { [unowned self] in
+                if let error = self.error {
+                    self.errorLabel.text = error.localizedDescription
+                }
                 self.tableView.reloadData()
-                //                self.configureFooterView()
+                self.configureViews()
             }
         }
     }
     
+    fileprivate var error: Error?
+    
+    fileprivate var thumbnailCache = NSCache<NSString,UIImage>()
+    fileprivate var albumList: [AlbumModel] = []
+
+    fileprivate lazy var errorLabel: UILabel = {
+        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width - 20, height: 70.0))
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.backgroundColor = .systemGray4
+        label.font = .italicSystemFont(ofSize: 14.0)
+        return label
+    }()
+    
+    fileprivate lazy var emptyLabel: UILabel = {
+        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width - 20, height: 70.0))
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.font = .italicSystemFont(ofSize: 14.0)
+        label.backgroundColor = .systemGray2
+        label.text = "No albums retrieved."
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         self.tableView.register(AlbumCell.classForCoder(), forCellReuseIdentifier: "AlbumCellId")
         
         self.tableView.rowHeight = 70.0
         
         self.clearsSelectionOnViewWillAppear = true
         
-        refreshContent()
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.state = .loading
+    }
+    
+    func configureViews() {
+        switch state {
+        case .empty:
+            self.tableView.tableFooterView = emptyLabel
+        case .viewing:
+            self.tableView.tableHeaderView = nil
+        case .loading:
+            self.tableView.tableHeaderView = nil
+        }
+        if self.error != nil{
+            self.tableView.tableHeaderView = errorLabel
+        }
+    }
+
         
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {	
@@ -73,6 +118,7 @@ class MainViewController: UITableViewController {
         
         cell.nameLabel.text = model.name
         cell.artistLabel.text = model.artistName
+        cell.artistLabel.textColor = .systemGray
         cell.accessoryType = .disclosureIndicator
         
         if let image = self.thumbnailCache.object(forKey: model.id as NSString) {
@@ -93,25 +139,39 @@ class MainViewController: UITableViewController {
         }
     }
     
+    @objc func handleRefreshControl() {
+        state = .loading
+    }
+
     private func refreshContent() {
         DispatchQueue.main.async { [unowned self] in
             self.refreshControl?.beginRefreshing()
         }
         
-        networkService.fetchRecords { [unowned self] (fetchResult) in
-            
-            defer {
-                DispatchQueue.main.async { [unowned self] in
-                    self.refreshControl?.endRefreshing()
+        DispatchQueue.global(qos: .background).async {
+            self.networkService.fetchRecords { [unowned self] (fetchResult) in
+                
+                defer {
+                    DispatchQueue.main.async { [unowned self] in
+                        self.refreshControl?.endRefreshing()
+                    }
                 }
-            }
-            
-            if let list = fetchResult.results {
-                self.albumList = list
-                self.state = .viewing
-                print("Refresh successful")
-            } else {
-                print("Refresh failed to acquire results.")
+                
+                if let error = fetchResult.error {
+                    self.error = error
+                } else {
+                    self.error = nil
+                }
+                
+                if let list = fetchResult.results,
+                    list.count > 0 {
+                    self.albumList = list
+                    self.state = .viewing
+                    print("Refresh successful")
+                } else {
+                    print("Refresh failed to acquire results.")
+                    self.state = .empty
+                }
             }
         }
     }

@@ -72,7 +72,6 @@ class AlbumCell: UITableViewCell {
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[spinner]-(8)-[name]-(0)-|", options: [], metrics: nil, views: views))
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[spinner]-(16)-[artist]-(0)-|", options: [], metrics: nil, views: views))
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[spinner]-(0)-|", options: [], metrics: nil, views: views))
-
         
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(3)-[name]-(3)-[artist]-(3)-|", options: [], metrics: nil, views: views))
         contentView.addConstraint(NSLayoutConstraint(item: thumbnailView,
@@ -108,6 +107,7 @@ class AlbumCell: UITableViewCell {
         artistLabel.text = ""
         nameLabel.text = ""
         thumbnailImage = nil
+        imageView?.image = nil
         super.prepareForReuse()
     }
 

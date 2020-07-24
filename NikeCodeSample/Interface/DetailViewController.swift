@@ -25,6 +25,8 @@ class DetailViewController: UIViewController {
         }
     }
     
+    private let labelTextColor = UIColor.systemGray
+    
     private let linkButton: UIButton = {
         let button = UIButton(type: .roundedRect)
         button.tintColor = .systemBlue
@@ -41,7 +43,7 @@ class DetailViewController: UIViewController {
         stack.axis = .vertical
         stack.distribution = .equalSpacing
         stack.alignment = .fill
-        stack.spacing = 6.0
+        stack.spacing = 3.0
         
         return stack
     }()
@@ -49,46 +51,54 @@ class DetailViewController: UIViewController {
     private let imageView: UIImageView = {
         let imageview = UIImageView()
         imageview.contentMode = .scaleAspectFit
+        imageview.clipsToBounds = false
+        imageview.layer.shadowColor = UIColor.black.cgColor
+        imageview.layer.shadowRadius = 6.0
+        
         return imageview
     }()
         
-    private let nameLabel: DetailRowView = {
+    private lazy var nameLabel: DetailRowView = {
         let label = DetailRowView()
         label.infoLabel.textAlignment = .right
         label.infoLabel.text = "Album:"
-        label.alley = 100.0
+        label.infoLabel.textColor = self.labelTextColor
         return label
     }()
-    private let artistLabel: DetailRowView = {
+    private lazy var artistLabel: DetailRowView = {
         let label = DetailRowView()
         label.infoLabel.textAlignment = .right
         label.infoLabel.text = "Artist:"
+        label.infoLabel.textColor = self.labelTextColor
         return label
     }()
-    private let genreLabel: DetailRowView = {
+    private lazy var genreLabel: DetailRowView = {
         let label = DetailRowView()
         label.infoLabel.textAlignment = .right
         label.infoLabel.text = "Genre:"
+        label.infoLabel.textColor = self.labelTextColor
         return label
     }()
-    private let releaseLabel: DetailRowView = {
+    private lazy var releaseLabel: DetailRowView = {
         let label = DetailRowView()
         label.infoLabel.textAlignment = .right
         label.infoLabel.text = "Release:"
+        label.infoLabel.textColor = self.labelTextColor
         return label
     }()
     
-    private let copyrightLabel: DetailRowView = {
+    private lazy var copyrightLabel: DetailRowView = {
         let label = DetailRowView()
         label.infoLabel.textAlignment = .right
         label.infoLabel.text = "Copyright:"
+        label.infoLabel.textColor = self.labelTextColor
         return label
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .systemBackground
+        self.view.backgroundColor = .secondarySystemBackground
 
         configureSubviews()
     }
@@ -101,6 +111,21 @@ class DetailViewController: UIViewController {
             aview.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(aview)
         }
+        
+        if #available(iOS 11, *) {
+          let guide = view.safeAreaLayoutGuide
+          NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalToSystemSpacingBelow: guide.topAnchor, multiplier: 1.0),
+            guide.bottomAnchor.constraint(equalToSystemSpacingBelow: linkButton.bottomAnchor, multiplier: 1.0)
+            ])
+        } else {
+           let topSpacing: CGFloat = 8.0
+            let bottonSpacing: CGFloat = 20.0
+           NSLayoutConstraint.activate([
+           imageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: topSpacing),
+           bottomLayoutGuide.topAnchor.constraint(equalTo: linkButton.bottomAnchor, constant: bottonSpacing)
+           ])
+        }
 
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(30)-[image]-(30)-|",
                                                                 options: [],
@@ -111,7 +136,7 @@ class DetailViewController: UIViewController {
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(70)-[image]-(30)-[stack]",
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[image]-(30)-[stack]",
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))
