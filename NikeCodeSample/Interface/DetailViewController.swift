@@ -51,9 +51,10 @@ class DetailViewController: UIViewController {
     private let imageView: UIImageView = {
         let imageview = UIImageView()
         imageview.contentMode = .scaleAspectFit
-        imageview.clipsToBounds = false
-        imageview.layer.shadowColor = UIColor.black.cgColor
+//        imageview.clipsToBounds = false
+        imageview.layer.shadowColor = UIColor.gray.cgColor
         imageview.layer.shadowRadius = 6.0
+        imageview.layer.shadowOpacity = 0.5
         
         return imageview
     }()
@@ -98,7 +99,11 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .secondarySystemBackground
+        if #available(iOS 13.0, *) {
+            self.view.backgroundColor = .secondarySystemBackground
+        } else {
+            self.view.backgroundColor = .lightGray
+        }
 
         configureSubviews()
     }

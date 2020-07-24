@@ -44,7 +44,7 @@ class MainViewController: UITableViewController {
         let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width - 20, height: 70.0))
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.backgroundColor = .systemGray4
+        label.backgroundColor = .gray
         label.font = .italicSystemFont(ofSize: 14.0)
         return label
     }()
@@ -54,7 +54,7 @@ class MainViewController: UITableViewController {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = .italicSystemFont(ofSize: 14.0)
-        label.backgroundColor = .systemGray2
+        label.backgroundColor = .gray
         label.text = "No albums retrieved."
         return label
     }()
@@ -189,7 +189,7 @@ class MainViewController: UITableViewController {
         let detailvc = DetailViewController()
         detailvc.albumViewModel = model
         
-        self.navigationController?.pushViewController(detailvc, animated: true)
+        navigationController?.pushViewController(detailvc, animated: true)
     }
 }
 

@@ -30,7 +30,7 @@ class AlbumCell: UITableViewCell {
         }
     }
 
-    var thumbnailImage = UIImage(systemName: "music.note") {
+    var thumbnailImage: UIImage? {
         didSet {
             DispatchQueue.main.async {
                 self.thumbnailView.image = self.thumbnailImage
