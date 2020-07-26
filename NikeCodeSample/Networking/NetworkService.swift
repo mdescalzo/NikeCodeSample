@@ -88,15 +88,3 @@ class NetworkService {
     
 }
 
-extension UIImage {
-    /**
-     Utility function to produce a UIImage from a url passed as a string
-     */
-    convenience init?(urlString: String) {
-        if let imageUrl = URL(string: urlString), let imageData = try? Data(contentsOf: imageUrl)  {
-            self.init(data: imageData)
-        } else {
-            return nil
-        }
-    }
-}

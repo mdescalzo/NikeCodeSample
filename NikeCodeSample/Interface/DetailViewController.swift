@@ -10,20 +10,38 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    var albumViewModel: AlbumModel? {
+    var viewModel: AlbumViewModel? {
         didSet {
-            guard let model = albumViewModel else { return }
-            DispatchQueue.main.async {
-                self.imageView.image = UIImage(urlString: model.artworkUrl100)
-                self.nameLabel.detailLabel.text = model.name
-                self.artistLabel.detailLabel.text = model.artistName
-                self.genreLabel.detailLabel.text = model.genres.first?.name
-                self.releaseLabel.detailLabel.text = model.releaseDate
-                self.copyrightLabel.detailLabel.text = model.copyright
-                self.linkButton.setTitle("See \(model.artistName) on iTunes", for: .normal)
+            DispatchQueue.main.async { [unowned self] in
+                self.imageView.image = self.viewModel?.artImage.value
+                self.nameLabel.detailLabel.text = self.viewModel?.nameString
+                self.artistLabel.detailLabel.text = self.viewModel?.artistString
+                self.genreLabel.detailLabel.text = self.viewModel?.genreString
+                self.releaseLabel.detailLabel.text = self.viewModel?.releaseDateString
+                self.copyrightLabel.detailLabel.text = self.viewModel?.copyrightString
+                
+                if let artist = self.viewModel?.artistString {
+                    self.linkButton.setTitle("Visit \(artist) on iTunes", for: .normal)
+                } else {
+                    self.linkButton.setTitle("Visit artist on iTunes", for: .normal)
+                }
             }
         }
     }
+    //    var albumViewModel: AlbumModel? {
+    //        didSet {
+    //            guard let model = albumViewModel else { return }
+    //            DispatchQueue.main.async {
+    //                self.imageView.image = UIImage(urlString: model.artworkUrl100)
+    //                self.nameLabel.detailLabel.text = model.name
+    //                self.artistLabel.detailLabel.text = model.artistName
+    //                self.genreLabel.detailLabel.text = model.genres.first?.name
+    //                self.releaseLabel.detailLabel.text = model.releaseDate
+    //                self.copyrightLabel.detailLabel.text = model.copyright
+    //                self.linkButton.setTitle("See \(model.artistName) on iTunes", for: .normal)
+    //            }
+    //        }
+    //    }
     
     private let labelTextColor = UIColor.systemGray
     
@@ -33,7 +51,7 @@ class DetailViewController: UIViewController {
         button.addTarget(self, action: #selector(handleLinkButtonTap), for: .touchUpInside)
         return button
     }()
-
+    
     private lazy var stack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [ self.nameLabel,
                                                     self.artistLabel,
@@ -51,14 +69,14 @@ class DetailViewController: UIViewController {
     private let imageView: UIImageView = {
         let imageview = UIImageView()
         imageview.contentMode = .scaleAspectFit
-//        imageview.clipsToBounds = false
+        //        imageview.clipsToBounds = false
         imageview.layer.shadowColor = UIColor.gray.cgColor
         imageview.layer.shadowRadius = 6.0
         imageview.layer.shadowOpacity = 0.5
         
         return imageview
     }()
-        
+    
     private lazy var nameLabel: DetailRowView = {
         let label = DetailRowView()
         label.infoLabel.textAlignment = .right
@@ -95,7 +113,7 @@ class DetailViewController: UIViewController {
         label.infoLabel.textColor = self.labelTextColor
         return label
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -104,7 +122,7 @@ class DetailViewController: UIViewController {
         } else {
             self.view.backgroundColor = .lightGray
         }
-
+        
         configureSubviews()
     }
     
@@ -118,25 +136,25 @@ class DetailViewController: UIViewController {
         }
         
         if #available(iOS 11, *) {
-          let guide = view.safeAreaLayoutGuide
-          NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalToSystemSpacingBelow: guide.topAnchor, multiplier: 1.0),
-            guide.bottomAnchor.constraint(equalToSystemSpacingBelow: linkButton.bottomAnchor, multiplier: 1.0)
+            let guide = view.safeAreaLayoutGuide
+            NSLayoutConstraint.activate([
+                imageView.topAnchor.constraint(equalToSystemSpacingBelow: guide.topAnchor, multiplier: 1.0),
+                guide.bottomAnchor.constraint(equalToSystemSpacingBelow: linkButton.bottomAnchor, multiplier: 1.0)
             ])
         } else {
-           let topSpacing: CGFloat = 8.0
+            let topSpacing: CGFloat = 8.0
             let bottonSpacing: CGFloat = 20.0
-           NSLayoutConstraint.activate([
-           imageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: topSpacing),
-           bottomLayoutGuide.topAnchor.constraint(equalTo: linkButton.bottomAnchor, constant: bottonSpacing)
-           ])
+            NSLayoutConstraint.activate([
+                imageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: topSpacing),
+                bottomLayoutGuide.topAnchor.constraint(equalTo: linkButton.bottomAnchor, constant: bottonSpacing)
+            ])
         }
-
+        
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(30)-[image]-(30)-|",
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))
-
+        
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[stack]-(20)-|",
                                                                 options: [],
                                                                 metrics: nil,
@@ -145,7 +163,7 @@ class DetailViewController: UIViewController {
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))
-
+        
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[button]-(20)-|",
                                                                 options: [],
                                                                 metrics: nil,
@@ -155,11 +173,11 @@ class DetailViewController: UIViewController {
                                                                 metrics: nil,
                                                                 views: subViews))
     }
-
-   @objc private func handleLinkButtonTap() {
-    guard let model = albumViewModel,
-        let url = URL(string: model.artistUrl) else { return }
-
+    
+    @objc private func handleLinkButtonTap() {
+        guard let urlString = viewModel?.artistUrlString,
+            let url = URL(string: urlString) else { return }
+        
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }

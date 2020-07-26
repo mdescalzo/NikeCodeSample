@@ -15,16 +15,33 @@ enum CellState {
 
 class AlbumCell: UITableViewCell {
     
-    var state: CellState = .loading {
+//    var state: CellState = .loading {
+//        didSet {
+//            DispatchQueue.main.async {
+//                switch self.state {
+//                case .loading:
+//                    self.spinner.startAnimating()
+//                    self.thumbnailView.isHidden = true
+//                case .viewing:
+//                    self.spinner.stopAnimating()
+//                    self.thumbnailView.isHidden = false
+//                }
+//            }
+//        }
+//    }
+    
+    var viewModel: AlbumViewModel? {
         didSet {
-            DispatchQueue.main.async {
-                switch self.state {
-                case .loading:
-                    self.spinner.startAnimating()
-                    self.thumbnailView.isHidden = true
-                case .viewing:
-                    self.spinner.stopAnimating()
-                    self.thumbnailView.isHidden = false
+            if let model = viewModel {
+                nameLabel.text = model.nameString
+                artistLabel.text = model.artistString
+                thumbnailView.image = model.artImage.value
+//                state = .loading
+                model.artImage.bind { [unowned self] image in
+                    DispatchQueue.main.async {
+                        self.thumbnailView.image = image
+//                        self.state = .viewing
+                    }
                 }
             }
         }
@@ -40,7 +57,7 @@ class AlbumCell: UITableViewCell {
     
     let nameLabel = UILabel()
     let artistLabel = UILabel()
-    let spinner = UIActivityIndicatorView()
+//    let spinner = UIActivityIndicatorView()
 
     private let thumbnailView = UIImageView()
 
@@ -55,10 +72,10 @@ class AlbumCell: UITableViewCell {
     
     private func configureSubviews() {
         
-        spinner.hidesWhenStopped = true
-        spinner.backgroundColor = UIColor.gray.withAlphaComponent(0.25)
+//        spinner.hidesWhenStopped = true
+//        spinner.backgroundColor = UIColor.gray.withAlphaComponent(0.25)
         
-        let views = [ "thumbnail" : thumbnailView, "name": nameLabel, "artist": artistLabel, "spinner": spinner  ]
+        let views = [ "thumbnail" : thumbnailView, "name": nameLabel, "artist": artistLabel, /*"spinner": spinner */ ]
         
         for view in views.values {
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -69,9 +86,9 @@ class AlbumCell: UITableViewCell {
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[thumbnail]-(16)-[artist]-(0)-|", options: [], metrics: nil, views: views))
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[thumbnail]-(0)-|", options: [], metrics: nil, views: views))
 
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[spinner]-(8)-[name]-(0)-|", options: [], metrics: nil, views: views))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[spinner]-(16)-[artist]-(0)-|", options: [], metrics: nil, views: views))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[spinner]-(0)-|", options: [], metrics: nil, views: views))
+//        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[spinner]-(8)-[name]-(0)-|", options: [], metrics: nil, views: views))
+//        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(0)-[spinner]-(16)-[artist]-(0)-|", options: [], metrics: nil, views: views))
+//        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[spinner]-(0)-|", options: [], metrics: nil, views: views))
         
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(3)-[name]-(3)-[artist]-(3)-|", options: [], metrics: nil, views: views))
         contentView.addConstraint(NSLayoutConstraint(item: thumbnailView,
@@ -108,6 +125,7 @@ class AlbumCell: UITableViewCell {
         nameLabel.text = ""
         thumbnailImage = nil
         imageView?.image = nil
+        viewModel = nil
         super.prepareForReuse()
     }
 

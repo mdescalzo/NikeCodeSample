@@ -116,27 +116,28 @@ class MainViewController: UITableViewController {
     
     fileprivate func configure(cell: AlbumCell, for model: AlbumModel) {
         
-        cell.nameLabel.text = model.name
-        cell.artistLabel.text = model.artistName
-        cell.artistLabel.textColor = .systemGray
-        cell.accessoryType = .disclosureIndicator
-        
-        if let image = self.thumbnailCache.object(forKey: model.id as NSString) {
-            cell.thumbnailImage = image
-            cell.state = .viewing
-        } else {
-            cell.state = .loading
-            DispatchQueue.global(qos: .background).async {
-                
-                if let image = UIImage(urlString: model.artworkUrl100) {
-                    self.thumbnailCache.setObject(image, forKey: model.id as NSString)
-                    cell.thumbnailImage = image
-                } else {
-                    
-                }
-                cell.state = .viewing
-            }
-        }
+        cell.viewModel = AlbumViewModel(model: model)
+//        cell.nameLabel.text = model.name
+//        cell.artistLabel.text = model.artistName
+//        cell.artistLabel.textColor = .systemGray
+//        cell.accessoryType = .disclosureIndicator
+//
+//        if let image = self.thumbnailCache.object(forKey: model.id as NSString) {
+//            cell.thumbnailImage = image
+//            cell.state = .viewing
+//        } else {
+//            cell.state = .loading
+//            DispatchQueue.global(qos: .background).async {
+//
+//                if let image = UIImage(urlString: model.artworkUrl100) {
+//                    self.thumbnailCache.setObject(image, forKey: model.id as NSString)
+//                    cell.thumbnailImage = image
+//                } else {
+//
+//                }
+//                cell.state = .viewing
+//            }
+//        }
     }
     
     @objc func handleRefreshControl() {
@@ -183,11 +184,11 @@ class MainViewController: UITableViewController {
             tableView.deselectRow(at: indexPath, animated: true)
             return
         }
-        
-        let model = self.albumList[indexPath.row]
+        guard let cell = tableView.cellForRow(at: indexPath) as? AlbumCell else { return }
+        let model = cell.viewModel
      
         let detailvc = DetailViewController()
-        detailvc.albumViewModel = model
+        detailvc.viewModel = model
         
         navigationController?.pushViewController(detailvc, animated: true)
     }
