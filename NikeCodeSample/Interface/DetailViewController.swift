@@ -150,16 +150,19 @@ class DetailViewController: UIViewController {
             ])
         }
         
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(30)-[image]-(30)-|",
-                                                                options: [],
-                                                                metrics: nil,
-                                                                views: subViews))
+        self.view.addConstraint(NSLayoutConstraint(item: imageView,
+                                                   attribute: .centerX,
+                                                   relatedBy: .equal,
+                                                   toItem: view,
+                                                   attribute: .centerX,
+                                                   multiplier: 1.0,
+                                                   constant: 0.0))
         
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[stack]-(20)-|",
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[image]-(30)-[stack]",
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[image(200)]-(30)-[stack]",
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))
@@ -172,6 +175,15 @@ class DetailViewController: UIViewController {
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))
+        
+        self.view.addConstraint(NSLayoutConstraint(item: imageView,
+                                                   attribute: .width,
+                                                   relatedBy: .equal,
+                                                   toItem: imageView,
+                                                   attribute: .height,
+                                                   multiplier: 1.0,
+                                                   constant: 0.0))
+
     }
     
     @objc private func handleLinkButtonTap() {
