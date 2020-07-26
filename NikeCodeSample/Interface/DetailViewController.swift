@@ -28,21 +28,7 @@ class DetailViewController: UIViewController {
             }
         }
     }
-    //    var albumViewModel: AlbumModel? {
-    //        didSet {
-    //            guard let model = albumViewModel else { return }
-    //            DispatchQueue.main.async {
-    //                self.imageView.image = UIImage(urlString: model.artworkUrl100)
-    //                self.nameLabel.detailLabel.text = model.name
-    //                self.artistLabel.detailLabel.text = model.artistName
-    //                self.genreLabel.detailLabel.text = model.genres.first?.name
-    //                self.releaseLabel.detailLabel.text = model.releaseDate
-    //                self.copyrightLabel.detailLabel.text = model.copyright
-    //                self.linkButton.setTitle("See \(model.artistName) on iTunes", for: .normal)
-    //            }
-    //        }
-    //    }
-    
+
     private let labelTextColor = UIColor.systemGray
     
     private let linkButton: UIButton = {
@@ -69,7 +55,6 @@ class DetailViewController: UIViewController {
     private let imageView: UIImageView = {
         let imageview = UIImageView()
         imageview.contentMode = .scaleAspectFit
-        //        imageview.clipsToBounds = false
         imageview.layer.shadowColor = UIColor.gray.cgColor
         imageview.layer.shadowRadius = 6.0
         imageview.layer.shadowOpacity = 0.5

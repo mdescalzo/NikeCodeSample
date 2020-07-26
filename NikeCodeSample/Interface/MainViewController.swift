@@ -37,7 +37,7 @@ class MainViewController: UITableViewController {
     
     fileprivate var error: Error?
     
-    fileprivate var thumbnailCache = NSCache<NSString,UIImage>()
+//    fileprivate var thumbnailCache = NSCache<NSString,UIImage>()
     fileprivate var albumList: [AlbumModel] = []
 
     fileprivate lazy var errorLabel: UILabel = {
@@ -116,37 +116,11 @@ class MainViewController: UITableViewController {
             return badCell
         }
         
-        configure(cell: cell, for: albumList[indexPath.row])
-        
+        cell.viewModel = AlbumViewModel(model: albumList[indexPath.row])
+
         return cell
     }
-    
-    fileprivate func configure(cell: AlbumCell, for model: AlbumModel) {
         
-        cell.viewModel = AlbumViewModel(model: model)
-//        cell.nameLabel.text = model.name
-//        cell.artistLabel.text = model.artistName
-//        cell.artistLabel.textColor = .systemGray
-//        cell.accessoryType = .disclosureIndicator
-//
-//        if let image = self.thumbnailCache.object(forKey: model.id as NSString) {
-//            cell.thumbnailImage = image
-//            cell.state = .viewing
-//        } else {
-//            cell.state = .loading
-//            DispatchQueue.global(qos: .background).async {
-//
-//                if let image = UIImage(urlString: model.artworkUrl100) {
-//                    self.thumbnailCache.setObject(image, forKey: model.id as NSString)
-//                    cell.thumbnailImage = image
-//                } else {
-//
-//                }
-//                cell.state = .viewing
-//            }
-//        }
-    }
-    
     @objc func handleRefreshControl() {
         state = .loading
     }
