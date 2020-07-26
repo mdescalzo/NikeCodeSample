@@ -12,7 +12,15 @@ class DetailViewController: UIViewController {
     
     var viewModel: AlbumViewModel? {
         didSet {
-            DispatchQueue.main.async { [unowned self] in
+            guard viewModel != nil else { return }
+            
+            viewModel?.artImage.bind { [unowned self] image in
+                DispatchQueue.main.async {
+                    self.imageView.image = image
+                }
+            }
+            
+            DispatchQueue.main.async {
                 self.imageView.image = self.viewModel?.artImage.value
                 self.nameLabel.detailLabel.text = self.viewModel?.nameString
                 self.artistLabel.detailLabel.text = self.viewModel?.artistString
