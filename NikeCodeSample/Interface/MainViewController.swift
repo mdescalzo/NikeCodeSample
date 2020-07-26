@@ -70,12 +70,16 @@ class MainViewController: UITableViewController {
         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+        
+        self.state = .empty
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.state = .loading
+        if state == .empty {
+            state = .loading
+        }
     }
     
     func configureViews() {
@@ -84,8 +88,11 @@ class MainViewController: UITableViewController {
             self.tableView.tableFooterView = emptyLabel
         case .viewing:
             self.tableView.tableHeaderView = nil
+            self.tableView.tableFooterView = nil
+
         case .loading:
             self.tableView.tableHeaderView = nil
+        self.tableView.tableFooterView = nil
         }
         if self.error != nil{
             self.tableView.tableHeaderView = errorLabel
