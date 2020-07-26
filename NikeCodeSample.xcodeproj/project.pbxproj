@@ -88,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				7D1A70C524C7A53300155F6A /* NikeCodeSample */,
+				7DE7495B24CB3FCE00CA3A9E /* Utility */,
 				7D1A70DC24C7A53600155F6A /* NikeCodeSampleTests */,
 				7D1A70E724C7A53600155F6A /* NikeCodeSampleUITests */,
 				7D1A70C424C7A53300155F6A /* Products */,
@@ -162,6 +163,13 @@
 				7D1A70FD24C7B64F00155F6A /* AlbumModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		7DE7495B24CB3FCE00CA3A9E /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

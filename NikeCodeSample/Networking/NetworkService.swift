@@ -31,7 +31,7 @@ class NetworkService {
     /**
      
      */
-    fileprivate let endpoint: String = "https://rss.itunes.apple.com/api/v1/us/apple-music/top-albums/all/100/explicit.json"
+    internal let endpoint: String = "https://rss.itunes.apple.com/api/v1/us/apple-music/top-albums/all/100/explicit.json"
     
     fileprivate var task: URLSessionTask?
     

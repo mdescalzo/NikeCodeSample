@@ -10,25 +10,48 @@ import XCTest
 @testable import NikeCodeSample
 
 class NikeCodeSampleTests: XCTestCase {
+    
+    var testNetworkService: NetworkService?
+    var testUrlSession: URLSession?
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        try super .setUpWithError()
+        
+        testUrlSession = URLSession(configuration: .default)
+        testNetworkService = NetworkService()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        testUrlSession = nil
+        testNetworkService = nil
+        
+        try super.tearDownWithError()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+ 
+    func testCallToEndPointCompletes() {
+        guard let sessionUt = testUrlSession,
+            let serviceUt = testNetworkService else {
+            XCTFail("Unexpected nil test objects!")
+            return
         }
+        
+        guard let url = URL(string: serviceUt.endpoint) else {
+            XCTFail("Invalid URL in \(#function)")
+            return
+        }
+        let promise = expectation(description: "Url session completion handler invoked.")
+        var statusCode: Int?
+        var responseError: Error?
+        
+        let dataTask = sessionUt.dataTask(with: url) { data, response, error in
+            statusCode = (response as? HTTPURLResponse)?.statusCode
+            responseError = error
+            promise.fulfill()
+        }
+        dataTask.resume()
+        wait(for: [promise], timeout: 10)
+        
+        XCTAssertNil(responseError)
+        XCTAssertEqual(statusCode, 200)
     }
-
 }
