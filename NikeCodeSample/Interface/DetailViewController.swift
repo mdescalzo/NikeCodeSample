@@ -128,20 +128,20 @@ class DetailViewController: UIViewController {
             view.addSubview(aview)
         }
         
-        if #available(iOS 11, *) {
-            let guide = view.safeAreaLayoutGuide
-            NSLayoutConstraint.activate([
-                imageView.topAnchor.constraint(equalToSystemSpacingBelow: guide.topAnchor, multiplier: 1.0),
-                guide.bottomAnchor.constraint(equalToSystemSpacingBelow: linkButton.bottomAnchor, multiplier: 1.0)
-            ])
-        } else {
-            let topSpacing: CGFloat = 8.0
-            let bottonSpacing: CGFloat = 20.0
-            NSLayoutConstraint.activate([
-                imageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: topSpacing),
-                bottomLayoutGuide.topAnchor.constraint(equalTo: linkButton.bottomAnchor, constant: bottonSpacing)
-            ])
-        }
+//        if #available(iOS 11, *) {
+//            let guide = view.safeAreaLayoutGuide
+//            NSLayoutConstraint.activate([
+//                imageView.topAnchor.constraint(equalToSystemSpacingBelow: guide.topAnchor, multiplier: 1.0),
+//                guide.bottomAnchor.constraint(equalToSystemSpacingBelow: linkButton.bottomAnchor, multiplier: 1.0)
+//            ])
+//        } else {
+//            let topSpacing: CGFloat = 8.0
+//            let bottonSpacing: CGFloat = 20.0
+//            NSLayoutConstraint.activate([
+//                imageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: topSpacing),
+//                bottomLayoutGuide.topAnchor.constraint(equalTo: linkButton.bottomAnchor, constant: bottonSpacing)
+//            ])
+//        }
         
         self.view.addConstraint(NSLayoutConstraint(item: imageView,
                                                    attribute: .centerX,

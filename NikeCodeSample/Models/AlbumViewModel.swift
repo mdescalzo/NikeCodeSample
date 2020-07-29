@@ -45,7 +45,7 @@ class AlbumViewModel {
             } else {
                 return model.releaseDate
             }
-        }()  // TODO: Make this prettier
+        }()
         copyrightString = model.copyright
         if let name = model.genres.first?.name {
             genreString = name

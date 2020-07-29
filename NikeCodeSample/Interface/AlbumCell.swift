@@ -33,8 +33,19 @@ class AlbumCell: UITableViewCell {
         }
     }
     
-    let nameLabel = UILabel()
-    let artistLabel = UILabel()
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 17.0, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
+    let artistLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16.0, weight: .regular)
+        label.textColor = .gray
+        
+        return label
+    }()
 //    let spinner = UIActivityIndicatorView()
 
     private let thumbnailView = UIImageView()
@@ -69,7 +80,7 @@ class AlbumCell: UITableViewCell {
                                                                   options: [],
                                                                   metrics: nil,
                                                                   views: views))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(3)-[name]-(3)-[artist]-(3)-|",
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(3)-[name]-(0)-[artist]-(6)-|",
                                                                   options: [],
                                                                   metrics: nil,
                                                                   views: views))
@@ -87,13 +98,13 @@ class AlbumCell: UITableViewCell {
                                                      attribute: .height,
                                                      multiplier: 0.55,
                                                      constant: 0.0))
-        contentView.addConstraint(NSLayoutConstraint(item: artistLabel,
-                                                     attribute: .height,
-                                                     relatedBy: .equal,
-                                                     toItem: contentView,
-                                                     attribute: .height,
-                                                     multiplier: 0.45,
-                                                     constant: 0.0))
+//        contentView.addConstraint(NSLayoutConstraint(item: artistLabel,
+//                                                     attribute: .height,
+//                                                     relatedBy: .equal,
+//                                                     toItem: contentView,
+//                                                     attribute: .height,
+//                                                     multiplier: 0.45,
+//                                                     constant: 0.0))
     }
     
     override func prepareForReuse() {
