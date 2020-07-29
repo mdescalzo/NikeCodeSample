@@ -55,7 +55,6 @@ class DetailViewController: UIViewController {
         stack.axis = .vertical
         stack.distribution = .equalSpacing
         stack.alignment = .fill
-        stack.spacing = 3.0
         
         return stack
     }()
@@ -63,7 +62,7 @@ class DetailViewController: UIViewController {
     private let imageView: UIImageView = {
         let imageview = UIImageView()
         imageview.contentMode = .scaleAspectFit
-        imageview.layer.shadowColor = UIColor.gray.cgColor
+        imageview.layer.shadowColor = UIColor.black.cgColor
         imageview.layer.shadowRadius = 6.0
         imageview.layer.shadowOpacity = 0.5
         
@@ -104,6 +103,8 @@ class DetailViewController: UIViewController {
         label.infoLabel.textAlignment = .right
         label.infoLabel.text = "Copyright:"
         label.infoLabel.textColor = self.labelTextColor
+        label.detailLabel.numberOfLines = 0
+        label.detailLabel.lineBreakMode = .byTruncatingTail
         return label
     }()
     
@@ -128,20 +129,22 @@ class DetailViewController: UIViewController {
             view.addSubview(aview)
         }
         
-//        if #available(iOS 11, *) {
-//            let guide = view.safeAreaLayoutGuide
-//            NSLayoutConstraint.activate([
-//                imageView.topAnchor.constraint(equalToSystemSpacingBelow: guide.topAnchor, multiplier: 1.0),
-//                guide.bottomAnchor.constraint(equalToSystemSpacingBelow: linkButton.bottomAnchor, multiplier: 1.0)
-//            ])
-//        } else {
-//            let topSpacing: CGFloat = 8.0
-//            let bottonSpacing: CGFloat = 20.0
-//            NSLayoutConstraint.activate([
-//                imageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: topSpacing),
-//                bottomLayoutGuide.topAnchor.constraint(equalTo: linkButton.bottomAnchor, constant: bottonSpacing)
-//            ])
-//        }
+        self.view.addConstraint(NSLayoutConstraint(item: linkButton,
+                                                   attribute: .bottom,
+                                                   relatedBy: .equal,
+                                                   toItem: view,
+                                                   attribute: .bottomMargin,
+                                                   multiplier: 1.0,
+                                                   constant: -20.0))
+
+        self.view.addConstraint(NSLayoutConstraint(item: imageView,
+                                                   attribute: .top,
+                                                   relatedBy: .equal,
+                                                   toItem: view,
+                                                   attribute: .topMargin,
+                                                   multiplier: 1.0,
+                                                   constant: 20.0))
+
         
         self.view.addConstraint(NSLayoutConstraint(item: imageView,
                                                    attribute: .centerX,
@@ -155,16 +158,12 @@ class DetailViewController: UIViewController {
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[image(200)]-(30)-[stack]",
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[image(200)]-(20)-[stack]-(>=0)-[button]",
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))
         
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[button]-(20)-|",
-                                                                options: [],
-                                                                metrics: nil,
-                                                                views: subViews))
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[button]-(20)-|",
                                                                 options: [],
                                                                 metrics: nil,
                                                                 views: subViews))

@@ -62,6 +62,6 @@ class DetailRowView : UIView {
                                                    toItem: self,
                                                    attribute: .width,
                                                    multiplier: ratio,
-                                                   constant: 0.0))
+                                                   constant: -alley/2))
     }
 }
