@@ -45,15 +45,15 @@ class DetailRowView : UIView {
         }
 
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[info]-(alley)-[detail]-|",
-                                                           options: .alignAllFirstBaseline,
+                                                           options: [],
                                                            metrics: metrics,
                                                            views: subViews))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[info]",
-                                                           options: .alignAllFirstBaseline,
+                                                           options: [],
                                                            metrics: metrics,
                                                            views: subViews))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[detail]-|",
-                                                           options: .alignAllFirstBaseline,
+                                                           options: [],
                                                            metrics: metrics,
                                                            views: subViews))
         self.addConstraint(NSLayoutConstraint.init(item: infoLabel,
