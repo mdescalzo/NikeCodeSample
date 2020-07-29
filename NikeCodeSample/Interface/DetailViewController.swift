@@ -114,7 +114,7 @@ class DetailViewController: UIViewController {
         if #available(iOS 13.0, *) {
             self.view.backgroundColor = .secondarySystemBackground
         } else {
-            self.view.backgroundColor = .lightGray
+            self.view.backgroundColor = .init(red: 242.0, green: 242.0, blue: 247.0, alpha: 1.0)
         }
         
         configureSubviews()
