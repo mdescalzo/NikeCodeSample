@@ -65,10 +65,14 @@ class MainViewController: UITableViewController {
         
         self.tableView.rowHeight = 70.0
         
+        title = "Nike Code Sample"
+        
         self.clearsSelectionOnViewWillAppear = true
         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         
         self.state = .empty
     }
