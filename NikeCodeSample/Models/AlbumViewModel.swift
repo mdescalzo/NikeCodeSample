@@ -23,7 +23,8 @@ class AlbumViewModel {
     
     private let albumId: String
     
-    required init(model: AlbumModel) {
+    required init?(model: AlbumModel) {
+        guard model.id.count > 0 else { return nil }
         nameString = model.name
         artistString = model.artistName
         artistUrlString = model.artistUrl
