@@ -4,6 +4,9 @@
 
 import Foundation
 
+/**
+ Model for the album objects from iTunes endpoint
+ */
 struct AlbumModel: Codable {
     
     let id: String
@@ -35,6 +38,9 @@ struct AlbumModel: Codable {
     }
 }
 
+/**
+ Model for the genre object
+ */
 struct GenreModel: Codable {
     let genreId: String
     let name: String

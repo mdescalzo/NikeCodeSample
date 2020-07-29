@@ -8,10 +8,13 @@
 
 import UIKit
 
+/**
+ Class to manage the visual elements of Album Models
+ */
 class AlbumViewModel {
     
+    // UIImage cache to prevent the need for repeated lookups
     private static var thumbnailCache = NSCache<NSString,UIImage>()
-    
     
     let artImage = Box(UIImage(named: "blue-vinyl"))
     let nameString: String
@@ -23,6 +26,11 @@ class AlbumViewModel {
     
     private let albumId: String
     
+    /**
+     Designated initializer used to build a view model from an album model
+     
+     - Parameter model: Data model used to build the view model
+     */
     required init?(model: AlbumModel) {
         guard model.id.count > 0 else { return nil }
         nameString = model.name
@@ -60,7 +68,7 @@ class AlbumViewModel {
         }
     }
     
-    func updateArtwork(with urlString: String) {
+    private func updateArtwork(with urlString: String) {
         if let image = Self.thumbnailCache.object(forKey: albumId as NSString) {
             artImage.value = image
         } else {
