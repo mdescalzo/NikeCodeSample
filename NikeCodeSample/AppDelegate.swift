@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            return true
         } else {
             window = UIWindow(frame: UIScreen.main.bounds)
-            let mainCon = MainViewController(style: .grouped)
+            let mainCon = MainViewController(style: .plain)
             let navCon = UINavigationController(rootViewController: mainCon)
             window?.rootViewController = navCon
             window?.makeKeyAndVisible()

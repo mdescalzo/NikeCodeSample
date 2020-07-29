@@ -37,7 +37,6 @@ class MainViewController: UITableViewController {
     
     fileprivate var error: Error?
     
-//    fileprivate var thumbnailCache = NSCache<NSString,UIImage>()
     fileprivate var albumList: [AlbumModel] = []
 
     fileprivate lazy var errorLabel: UILabel = {

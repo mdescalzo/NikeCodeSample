@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let mainCon = MainViewController(style: .grouped)
+            let mainCon = MainViewController(style: .plain)
             let navCon = UINavigationController(rootViewController: mainCon)
             window.rootViewController = navCon
             self.window = window

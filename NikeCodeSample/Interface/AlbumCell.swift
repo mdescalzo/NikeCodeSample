@@ -46,7 +46,6 @@ class AlbumCell: UITableViewCell {
         
         return label
     }()
-//    let spinner = UIActivityIndicatorView()
 
     private let thumbnailView = UIImageView()
 
@@ -61,7 +60,7 @@ class AlbumCell: UITableViewCell {
     
     private func configureSubviews() {
                 
-        let views = [ "thumbnail" : thumbnailView, "name": nameLabel, "artist": artistLabel, /*"spinner": spinner */ ]
+        let views = [ "thumbnail" : thumbnailView, "name": nameLabel, "artist": artistLabel ]
         
         for view in views.values {
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -98,13 +97,6 @@ class AlbumCell: UITableViewCell {
                                                      attribute: .height,
                                                      multiplier: 0.55,
                                                      constant: 0.0))
-//        contentView.addConstraint(NSLayoutConstraint(item: artistLabel,
-//                                                     attribute: .height,
-//                                                     relatedBy: .equal,
-//                                                     toItem: contentView,
-//                                                     attribute: .height,
-//                                                     multiplier: 0.45,
-//                                                     constant: 0.0))
     }
     
     override func prepareForReuse() {
