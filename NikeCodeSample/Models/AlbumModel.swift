@@ -14,7 +14,7 @@ struct AlbumModel: Codable {
     let releaseDate: String
     let name: String
     let kind: String
-    let copyright: String
+    let copyright: String?
     let artistId: String
     let contentAdvisoryRating: String?
     let artistUrl: String
