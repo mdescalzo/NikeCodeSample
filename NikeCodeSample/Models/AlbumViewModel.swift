@@ -63,8 +63,9 @@ class AlbumViewModel {
         
         albumId = model.id
         
-        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
-            self.updateArtwork(with: model.artworkUrl100)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            this.updateArtwork(with: model.artworkUrl100)
         }
     }
     
@@ -72,10 +73,11 @@ class AlbumViewModel {
         if let image = Self.thumbnailCache.object(forKey: albumId as NSString) {
             artImage.value = image
         } else {
-            UIImage.fetchImage(from: urlString) { [unowned self] image in
+            UIImage.fetchImage(from: urlString) { [weak self] image in
+                guard let this = self else { return }
                 if let image = image {
-                    self.artImage.value = image
-                    Self.thumbnailCache.setObject(image, forKey: self.albumId as NSString)
+                    this.artImage.value = image
+                    Self.thumbnailCache.setObject(image, forKey: this.albumId as NSString)
                 }
             }
         }

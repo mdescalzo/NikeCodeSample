@@ -16,9 +16,10 @@ class AlbumCell: UITableViewCell {
                 nameLabel.text = model.nameString
                 artistLabel.text = model.artistString
                 thumbnailView.image = model.artImage.value
-                model.artImage.bind { [unowned self] image in
+                model.artImage.bind { [weak self] image in
+                    guard let this = self else { return }
                     DispatchQueue.main.async {
-                        self.thumbnailView.image = image
+                        this.thumbnailView.image = image
                     }
                 }
             }

@@ -14,9 +14,10 @@ class DetailViewController: UIViewController {
         didSet {
             guard viewModel != nil else { return }
             
-            viewModel?.artImage.bind { [unowned self] image in
+            viewModel?.artImage.bind { [weak self] image in
+                guard let this = self else { return }
                 DispatchQueue.main.async {
-                    self.imageView.image = image
+                    this.imageView.image = image
                 }
             }
             
